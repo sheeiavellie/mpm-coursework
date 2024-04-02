@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/sheeiavellie/mpm-coursework/server/handlers"
 )
 
 func main() {
@@ -18,6 +19,8 @@ func main() {
 	port := os.Getenv("PORT")
 
 	mux := http.NewServeMux()
+
+	mux.HandleFunc("POST /process", handlers.HandleProcess)
 
 	log.Printf("seuserrver is listening on port: %s", port)
 	http.ListenAndServe(":"+port, mux)
