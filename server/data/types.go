@@ -1,22 +1,25 @@
 package data
 
-import "time"
+import "fmt"
 
 type ProcessRequest struct {
-	Timestamp time.Time    `json:"timestamp"`
+	Timestamp string       `json:"timestamp"`
 	Data      []SensorData `json:"data"`
 }
 
 type SensorData interface {
-	GetSensorType() string
+	GetSensorData() string
 }
 
 type Potentiometer struct {
-	sensorType string
-	ID         int `json:"id"`
-	Value      int `json:"value"`
+	ID         int    `json:"id"`
+	SensorType string `json:"sensor_type"`
+	Value      int    `json:"value"`
 }
 
 func (pd *Potentiometer) GetSensorType() string {
-	return pd.sensorType
+	return fmt.Sprintf(
+		"| id: %d | type: %s | value: %d |",
+		pd.ID, pd.SensorType, pd.Value,
+	)
 }
